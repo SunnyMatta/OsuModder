@@ -8,13 +8,31 @@ namespace OsuModder.Launcher
 {
     class Program
     {
+        public static string version = "0.0.1";
 
         static void Main(string[] args)
         {
-            //get the path to the osu's game assembly
-            var osuBin = Path.Combine(Environment.GetEnvironmentVariable("HOME") ?? "", "Documents", "APPS", "squashfs-root", "usr", "bin"); // /home/sunny/Documents/APPS/squashfs-root/usr/bin/
-            var osuMods = Path.Combine(Environment.GetEnvironmentVariable("HOME") ?? "", ".local", "share", "osu", "mods"); // /home/sunny/Documents/APPS/squashfs-root/usr/bin/
+
+            Console.WriteLine("OsuModder | Version: " + version);
+            string RunningOS = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
+            string osuBin;
+            string osuMods;
             
+            if (RunningOS.ToLower().Contains("linux"))
+            {
+                osuBin = Path.Combine(Environment.GetEnvironmentVariable("HOME") ?? "", "Documents", "APPS", "squashfs-root", "usr", "bin");
+                osuMods = Path.Combine(Environment.GetEnvironmentVariable("HOME") ?? "", ".local", "share", "osu", "mods");
+            
+            }else if (RunningOS.ToLower().Contains("windows"))
+            {
+                osuBin = Path.Combine(Environment.GetEnvironmentVariable("LOCALAPPDATA") ?? "", "osulazer", "current");
+                osuMods = Path.Combine(Environment.GetEnvironmentVariable("LOCALAPPDATA") ?? "", "osulazer", "mods");
+            }else
+            {
+                Console.WriteLine("OS cannot be defined");
+                return;
+            }
+
             if (!Directory.Exists(osuBin))
             {
                 Console.WriteLine("Osu's Binary Folder not found: " + osuBin);
@@ -23,8 +41,7 @@ namespace OsuModder.Launcher
 
             if (!Directory.Exists(osuMods))
             {
-                Console.WriteLine("Mods Folder not found: " + osuMods);
-                return;
+                Directory.CreateDirectory(osuMods);
             }
             var GameAssemblyPath = Path.Combine(osuBin, "osu.Game.dll");
 
@@ -48,6 +65,7 @@ namespace OsuModder.Launcher
             if(!File.Exists(GameAssemblyPath + ".ExtraBackup"))
             {
                 File.Copy(GameAssemblyPath, GameAssemblyPath + ".ExtraBackup");
+                Console.WriteLine("Created .ExtraBackup of osu.Game.dll in case if something bad will happen :P");
             }
 
             if(!File.Exists(GameAssemblyPath + ".DONOTDELETE"))
@@ -66,6 +84,7 @@ namespace OsuModder.Launcher
             {
                 File.Delete(GameAssemblyPath);
                 File.Move(GameAssemblyPath + ".DONOTDELETE", GameAssemblyPath);
+                Console.WriteLine("[CODE 0] Original osu.Game.dll were recovered");
             }
         }
     }
