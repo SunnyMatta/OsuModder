@@ -1,0 +1,10 @@
+OsuModder.Core/bin/*
+OsuModder.Core/obj/*
+
+usr/*
+*.AppImage
+OsuModder.API/bin/*
+OsuModder.API/obj/*
+
+OsuModder.Launcher/bin/*
+OsuModder.Launcher/obj/*
