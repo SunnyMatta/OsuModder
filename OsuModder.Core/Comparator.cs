@@ -5,6 +5,15 @@ namespace OsuModder.Core.Comparator
 {
     public class ILAsm
     {
+        public static List<string> DOTNETruntimepath = new List<string>();
+        public static void AddSearchPath(string path, DefaultAssemblyResolver resolver)
+            {
+                resolver.AddSearchDirectory(path);
+                if (!DOTNETruntimepath.Contains(path))
+                {
+                    DOTNETruntimepath.Add(path);
+                }
+            }
         public static void applyDOTNETversion(string assemblyPath, DefaultAssemblyResolver resolver)
         {
              //get the version prefix from the assembly
@@ -31,7 +40,7 @@ namespace OsuModder.Core.Comparator
             Console.WriteLine("Searching for runtime assemblies in: " + runtimePath);
             if (Directory.Exists(runtimePath))
             {
-                resolver.AddSearchDirectory(runtimePath);
+                ILAsm.AddSearchPath(runtimePath, resolver);
                 Console.WriteLine("Found runtime path: " + runtimePath);
                 var matchedVersion = Directory.GetDirectories(runtimePath)
                     .Select(Path.GetFileName)
@@ -47,7 +56,7 @@ namespace OsuModder.Core.Comparator
                 }
 
                 string matchedRuntimePath = Path.Combine(runtimePath, matchedVersion);
-                resolver.AddSearchDirectory(matchedRuntimePath);
+                ILAsm.AddSearchPath(matchedRuntimePath, resolver);
                 Console.WriteLine("Added runtime search directory: " + matchedRuntimePath);
 
              }else

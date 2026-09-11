@@ -51,10 +51,9 @@ namespace OsuModder.Core.Patch
             processor.InsertBefore(firstInstruction, processor.Create(OpCodes.Pop));
             Console.WriteLine("Resolver injected");
         }
-        public static void PatchAssembly(string OriginalAssemblyPath, string ModifiedAssemblyPath, DefaultAssemblyResolver resolver)
+        public static void PatchAssembly(string OriginalAssemblyPath, string ModifiedAssemblyPath, DefaultAssemblyResolver resolver, string output)
         {
             using var originalAssembly = AssemblyDefinition.ReadAssembly(OriginalAssemblyPath, new ReaderParameters { ReadWrite = true, AssemblyResolver = resolver});
-            InjectAsmResolver(originalAssembly.MainModule, OriginalAssemblyPath);
 
             using var moddedAssembly = AssemblyDefinition.ReadAssembly(ModifiedAssemblyPath, new ReaderParameters { ReadWrite = false, AssemblyResolver = resolver});
             InjectAsmResolver(originalAssembly.MainModule, ModifiedAssemblyPath);
@@ -151,7 +150,7 @@ namespace OsuModder.Core.Patch
                     }
                 }
             }
-            originalAssembly.Write("osuPatched.tmp");
+            originalAssembly.Write(output);
         }
 
         /*

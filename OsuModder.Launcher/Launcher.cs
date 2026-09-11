@@ -8,8 +8,8 @@ namespace OsuModder.Launcher
 {
     class Program
     {
+        
         public static string version = "0.0.1";
-
         static void Main(string[] args)
         {
 
@@ -20,7 +20,42 @@ namespace OsuModder.Launcher
             
             if (RunningOS.ToLower().Contains("linux"))
             {
-                osuBin = Path.Combine(Environment.GetEnvironmentVariable("HOME") ?? "", "Documents", "APPS", "squashfs-root", "usr", "bin");
+                osuBin = "./squashfs-root/usr/bin/";
+                if (!Directory.Exists(osuBin))
+                {
+                    Console.WriteLine("No existing binary folder were found, extracting from appimage");
+                    if (args.Length == 0)
+                    {
+                        Console.WriteLine("Please open the launcher script and define AppImage location");
+                        return;
+                    }
+                    string appimagelocation = args[0];
+                    ProcessStartInfo extractInfo = new ProcessStartInfo
+                    {
+                        FileName = appimagelocation,
+                        Arguments = "--appimage-extract",
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    };
+
+                    using(Process extractor = Process.Start(extractInfo))
+                    {
+                        extractor.WaitForExit();
+                        if (extractor.ExitCode != 0)
+                        {
+                            string error = extractor.StandardError.ReadToEnd();
+                            Console.WriteLine("Failed to extract appimage. Can you try to use command: ' ./osu.AppImage --appimage-extract ' and run the launcher again?");
+                            return;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Binaries extracted");
+                        }
+                    }
+                }
+
                 osuMods = Path.Combine(Environment.GetEnvironmentVariable("HOME") ?? "", ".local", "share", "osu", "mods");
             
             }else if (RunningOS.ToLower().Contains("windows"))
@@ -52,16 +87,36 @@ namespace OsuModder.Launcher
             }
 
             var resolver = new DefaultAssemblyResolver();
+
             resolver.AddSearchDirectory(osuBin);
             resolver.AddSearchDirectory(osuMods);
 
             ILAsm.applyDOTNETversion(GameAssemblyPath, resolver);
             
-            var readerParameters = new ReaderParameters { ReadWrite = true, AssemblyResolver = resolver };
             Console.WriteLine("Patching library: " + GameAssemblyPath);
 
-            Modder.PatchAssembly(GameAssemblyPath, Path.Combine(osuMods, "OsuMod.dll"), resolver);
+            string[] modlist = Directory.GetFiles(osuMods, "*.dll");
             
+            string currentAsm = GameAssemblyPath;
+            
+            if (!Directory.Exists("./tmp"))
+            {
+                Directory.CreateDirectory("tmp");
+            }
+            else
+            {
+                Directory.Delete("tmp", recursive: true);
+                Directory.CreateDirectory("tmp");
+            }
+            foreach (string mod in modlist)
+            {
+                string nextAsm = Path.Combine("tmp", $"osuPatcher{Guid.NewGuid():N}.part");
+                if(mod == "ModApi"){}
+                Console.WriteLine("MOD: " + mod);
+                Modder.PatchAssembly(currentAsm, Path.Combine(osuMods, mod), resolver, nextAsm);
+                currentAsm = nextAsm;
+            }
+
             if(!File.Exists(GameAssemblyPath + ".ExtraBackup"))
             {
                 File.Copy(GameAssemblyPath, GameAssemblyPath + ".ExtraBackup");
@@ -72,8 +127,27 @@ namespace OsuModder.Launcher
             {
                 File.Move(GameAssemblyPath, GameAssemblyPath + ".DONOTDELETE");
             }
+            if(File.Exists(GameAssemblyPath))
+            {
+                File.Delete(GameAssemblyPath);
+            }
 
-            File.Move("osuPatched.tmp", GameAssemblyPath);
+            /* in case if mod need to get access to osu binary directly (which i dont think because im injecting custom asm resolver into osu)
+            foreach (string mod in modlist)
+            {
+                    string destination = Path.Combine(
+                        osuBin,
+                    Path.GetFileName(mod));
+                    File.Copy(mod, destination, overwrite: true);
+            }
+            */
+
+            File.Move(currentAsm, GameAssemblyPath);
+
+            if (Directory.Exists("./tmp"))
+            {
+                Directory.Delete("tmp", recursive: true);
+            }
 
             Console.WriteLine("Patched");
             using (Process OSUSoftware = Process.Start(osuBin + "/osu!"))
@@ -84,7 +158,11 @@ namespace OsuModder.Launcher
             {
                 File.Delete(GameAssemblyPath);
                 File.Move(GameAssemblyPath + ".DONOTDELETE", GameAssemblyPath);
-                Console.WriteLine("[CODE 0] Original osu.Game.dll were recovered");
+                Console.WriteLine("Original osu.Game.dll was recovered");
+            }
+            else
+            {
+                Console.WriteLine("Original osu.Game.dll was NOT recovered, please consider to copy osu.Game.dll.ExtraBackup");
             }
         }
     }
