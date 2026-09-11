@@ -3,20 +3,45 @@
 
 >[!WARNING]
 > This is Early Access.
->If you encountered any problems or bugs, please open issue or pr <3
+> If you encountered any problems or bugs, please open issue or pr <3
 
-<img align="left" width="256" height="256" src="Images/lazermod.png">
-Mod-Loader for osu!lazer, written without external dependencies.
+>[!CAUTION]
+> **YOU WILL GET PERMANENTLY BANNED, IF YOU ARE IN ONLINE MODE!** 
+> 
+> This project is considered as **unofficial, community-made tool**. Developer (me) is not responsible for your ban, if you will get one. **YOU HAVE BEEN WARNED**
+<div align="center">
 
-<h1 style="clear: both;">Why?</h1>
+![osuModderBanner](Images/banner.png)
+Mod-Loader for osu!lazer
 
-Recently I was curious to modificate UI for osu! to get some additional functionality, also to give it to my friend for some giggles. However, Recompiling osu!'s dlls and sending back asking to delete specific files for every update is just so annoying. I love playing with games from assembly level, so I've decided to make entire mod-loader for it. *Really hope you won't call it useless. Also, peppy pwease don't hate me <3*
+</div>
+
+## Why? (Please read it)
+Recently I was curious to modificate UI for osu! in order to get some additional functionality. However, Recompiling osu!'s entire library is not quite promising, because I wanna share my code to my friends easily as well. I love playing with games' assembly, so I've decided to make entire mod-loader for it. :P
+
+This project is not considered for hacks or anything related to unfair gameplay. 
+
+I mainly made it for myself, but considered to turn it into the portfolio.
+
+*No offence to the Peppy <3*
+
+## Is this legal?
+Yes. It is considered legal ONLY IF YOU'RE **NOT** CONNECTING TO THE OFFICIAL SERVERS! Game itself is open-source and licensed under MIT license.
+
+**Please, be sure you are in offline mode before using this mod-loader.**
 
 ## Usage
-You basically just putting `.dll` file (which is mod) into the `mods/` folder.
+IMPORTANT: Before modding, you must log out from osu account without remembering password option.
 
+- Linux
+	- you have to open `run.sh` and change `APPIMAGE_PATH=` to the osu's AppImage full path. You also can drop `osu.AppImage` into the directory where the script is. All patches will be happened in diffenet binary, so you can easily change between modded and original one (**consider your online access before changing!**)
+
+- Windows
+	- simply running script should be it. However, windows uses one binary for modded and original. If you wanna recover your osu and connect to the servers, check if you have `osu.Game.dll.ExtraBackup`. If you have it, delete `osu.Game.dll` and replace it with `osu.Game.dll.ExtraBackup` in order to be sure that you are running original/unpatched dll.
+
+For modding, you putting `.dll` file (which is mod) into the `mods/` folder.
 >[!NOTE]
->You must have `OsuModderApi.dll` in the mod folder, if mod requires it. It should be included with mod.
+>You must have `OsuModder.API.dll` in the mod folder, if mod requires it. It should be included with mod. Also, Code will generate backup of osu.Game.dll, if something will break.
 
 Code will generate `mods/` folder in:
 
@@ -29,7 +54,7 @@ Code will generate `mods/` folder in:
 `C:\Users\{username}\AppData\Local\osulazer\mods\`
 
 ## Example
-OsuModder heavily depends on osu!'s libraries.
+*This example is temporal! enriched one will be pushed very soon*
 
 Please check [osu!Framework Documentation](https://github.com/ppy/osu-framework/wiki/Setting-up-your-first-project) in order to get started.
 
@@ -102,4 +127,3 @@ So, that code affects ResultsScreen which adds button with function and removes 
 the `Action = () => ` from code simply means that if button will be clicked, it will execute that scope (for this example we used applause sound).
 
 This is just very simple example of osu!Framework, which can be compiled and used as a mod for osu!
-

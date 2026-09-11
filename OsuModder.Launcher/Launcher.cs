@@ -9,7 +9,7 @@ namespace OsuModder.Launcher
     class Program
     {
         
-        public static string version = "0.0.1";
+        public static string version = "0.1";
         static void Main(string[] args)
         {
 
@@ -60,6 +60,7 @@ namespace OsuModder.Launcher
             
             }else if (RunningOS.ToLower().Contains("windows"))
             {
+
                 osuBin = Path.Combine(Environment.GetEnvironmentVariable("LOCALAPPDATA") ?? "", "osulazer", "current");
                 osuMods = Path.Combine(Environment.GetEnvironmentVariable("LOCALAPPDATA") ?? "", "osulazer", "mods");
             }else
@@ -96,7 +97,8 @@ namespace OsuModder.Launcher
             Console.WriteLine("Patching library: " + GameAssemblyPath);
 
             string[] modlist = Directory.GetFiles(osuMods, "*.dll");
-            
+            if (modlist.Any())
+            {
             string currentAsm = GameAssemblyPath;
             
             if (!Directory.Exists("./tmp"))
@@ -150,6 +152,9 @@ namespace OsuModder.Launcher
             }
 
             Console.WriteLine("Patched");
+            }
+            
+            
             using (Process OSUSoftware = Process.Start(osuBin + "/osu!"))
             {
                 OSUSoftware.WaitForExit();
@@ -162,7 +167,7 @@ namespace OsuModder.Launcher
             }
             else
             {
-                Console.WriteLine("Original osu.Game.dll was NOT recovered, please consider to copy osu.Game.dll.ExtraBackup");
+                Console.WriteLine("Original osu.Game.dll was NOT recovered. If you had any modifications on, please consider to copy osu.Game.dll.ExtraBackup");
             }
         }
     }
