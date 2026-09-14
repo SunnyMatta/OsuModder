@@ -1,14 +1,12 @@
 
-# OsuModder
-
 >[!WARNING]
 > This is Early Access.
 > If you encountered any problems or bugs, please open issue or pr <3
 
 >[!CAUTION]
-> **YOU WILL GET PERMANENTLY BANNED, IF YOU ARE IN ONLINE MODE!** 
+> **YOU WILL GET PERMANENTLY BANNED, IF YOU WILL USE IT IN ONLINE MODE!** 
 > 
-> This project is considered as **unofficial, community-made tool**. Developer (me) is not responsible for your ban, if you will get one. **YOU HAVE BEEN WARNED**
+> This project is considered as **unofficial, community-made tool**. Developer (me) is not responsible for banishment or any liabilities. **YOU HAVE BEEN WARNED**
 <div align="center">
 
 ![osuModderBanner](Images/banner.png)
@@ -17,31 +15,28 @@ Mod-Loader for osu!lazer
 </div>
 
 ## Why? (Please read it)
-Recently I was curious to modificate UI for osu! in order to get some additional functionality. However, Recompiling osu!'s entire library is not quite promising, because I wanna share my code to my friends easily as well. I love playing with games' assembly, so I've decided to make entire mod-loader for it. :P
+Recently I was curious to create Mod-loader for no reason, and decided to make it for already open-source game called osu!lazer :P. This project is considered for personal education, any claims about how useless this project is will be ignored (because i know how useless it is for ordinary gamers, but not for programmers who want to learn stuff. you know? :3)
 
-This project is not considered for hacks or anything related to unfair gameplay. 
+This project is **not** intended for any unfair gameplay modifications. 
 
-I mainly made it for myself, but considered to turn it into the portfolio.
+I mainly made it for myself, yet considered to turn it into the portfolio.
 
-*No offence to the Peppy <3*
-
-## Is this legal?
-Yes. It is considered legal ONLY IF YOU'RE **NOT** CONNECTING TO THE OFFICIAL SERVERS! Game itself is open-source and licensed under MIT license.
-
-**Please, be sure you are in offline mode before using this mod-loader.**
+*No offense to the Game Devs <3*
 
 ## Usage
-IMPORTANT: Before modding, you must log out from osu account without remembering password option.
+>[!IMPORTANT]
+> Third-party modification may contain malicious code. Do it on your own risk
 
 - Linux
-	- you have to open `run.sh` and change `APPIMAGE_PATH=` to the osu's AppImage full path. You also can drop `osu.AppImage` into the directory where the script is. All patches will be happened in diffenet binary, so you can easily change between modded and original one (**consider your online access before changing!**)
+	- you have to open `run.sh` and change `APPIMAGE_PATH=` to the osu's AppImage full path. Dropping `osu.AppImage` into the script directory also valid. All patches will be happened in a different binary folder, hence your original `.AppImage` will be secured (**Consider your online access before any changes!**)
 
-- Windows
-	- simply running script should be it. However, windows uses one binary for modded and original. If you wanna recover your osu and connect to the servers, check if you have `osu.Game.dll.ExtraBackup`. If you have it, delete `osu.Game.dll` and replace it with `osu.Game.dll.ExtraBackup` in order to be sure that you are running original/unpatched dll.
+- Windows (**RISK INVOLVED**)
+	- simply running script should be it. However, windows uses one binary for modded and original. In order to recover your osu without doubts, check if you have `osu.Game.dll.ExtraBackup` (code generates it after first execution). If file exists, replace `osu.Game.dll` with `osu.Game.dll.ExtraBackup` to be sure that you are running original/unpatched binaries.
 
 For modding, you putting `.dll` file (which is mod) into the `mods/` folder.
+
 >[!NOTE]
->You must have `OsuModder.API.dll` in the mod folder, if mod requires it. It should be included with mod. Also, Code will generate backup of osu.Game.dll, if something will break.
+>Some modifications require `OsuModder.API.dll` in the mod folder. It should be included with mod.
 
 Code will generate `mods/` folder in:
 
@@ -49,16 +44,13 @@ Code will generate `mods/` folder in:
    	 -  Appimage (Recommended): 
    	`~/.local/share/osu/mods`
    	  - Flatpak:
-*No support yet*
+*Not supported yet*
  - Windows:
 `C:\Users\{username}\AppData\Local\osulazer\mods\`
 
-## Example
-*This example is temporal! enriched one will be pushed very soon*
+## Getting started
 
 Please check [osu!Framework Documentation](https://github.com/ppy/osu-framework/wiki/Setting-up-your-first-project) in order to get started.
-
-Anyway, let me show you an example:
 
 	using osu.Framework.Audio;
 	using osu.Framework.Graphics;
@@ -123,7 +115,26 @@ Anyway, let me show you an example:
 			}
 		}
 	}
-So, that code affects ResultsScreen which adds button with function and removes everything like scores and stuff.
-the `Action = () => ` from code simply means that if button will be clicked, it will execute that scope (for this example we used applause sound).
 
-This is just very simple example of osu!Framework, which can be compiled and used as a mod for osu!
+This example affects ResultsScreen, which adds button with function and removes everything like scores and stuff.
+the `Action = () => ` part from code simply means that if button will be clicked, it will execute that scope (for this example we used applause sound).
+
+This is just very simple example of osu!Framework, which can be compiled and used as a binary for osuModder
+
+## Legality
+1. Trademark & Affiliation
+
+    - OsuModder is an independent, community-developed open-source project. It is not affiliated with, endorsed by, or sponsored by Dean Herbert (peppy), ppy Pty Ltd, or the official osu! development team. All trademarks, registered trademarks, and game assets belong to their respective owners.
+
+2. Terms of Service & Online Access
+
+   - Client Integrity: Modifying game binaries or injecting foreign .dll files violates the osu! Terms of Service regarding client integrity when interacting with official infrastructure.
+
+   - Offline Scope: This software is designed exclusively for offline UI experimentation, local feature testing, and educational research. Connecting to official osu! servers using a modified binaries will result an automated or manual permanent account ban.
+
+3. Intellectual Property & Fair Use
+   - No Asset Redistribution: OsuModder operates entirely as a dynamic patcher/loader and does not package, host, or redistribute copyrighted game assets, audio samples, or compiled game binaries belonging to ppy Pty Ltd.
+   - Fair Use: Assembly hooking is performed locally on the user's machine for research, interoperability, and experimentation.
+  
+4. Contact & Copyright Notice
+   - If you are a copyright holder or a representative of ppy Pty Ltd and have concerns regarding any aspect of this software, please open an issue or reach out directly to the maintainer for prompt resolution.
