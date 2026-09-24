@@ -14,6 +14,8 @@ Mod-Loader for osu!lazer
 
 </div>
 
+[![.NET](https://github.com/SunnyMatta/OsuModder/actions/workflows/dotnet.yml/badge.svg)](https://github.com/SunnyMatta/OsuModder/actions/workflows/dotnet.yml)
+
 ## Why? (Please read it)
 Recently I was curious to create Mod-loader for no reason, and decided to make it for already open-source game called osu!lazer :P. This project is considered for personal education, any claims about how useless this project is will be ignored (because i know how useless it is for ordinary gamers, but not for programmers who want to learn stuff. you know? :3)
 
