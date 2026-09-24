@@ -4,7 +4,7 @@
 > If you encountered any problems or bugs, please open issue or pr <3
 
 >[!CAUTION]
-> **YOU WILL GET PERMANENTLY BANNED, IF YOU WILL USE IT IN ONLINE MODE!** 
+> **MOD IS NOT INTENDED FOR OFFICIAL USE. using any mods in online-mode WILL CAUSE BANISHMENT** 
 > 
 > This project is considered as **unofficial, community-made tool**. Developer (me) is not responsible for banishment or any liabilities. **YOU HAVE BEEN WARNED**
 <div align="center">
@@ -23,7 +23,7 @@ This project is **not** intended for any unfair gameplay modifications.
 
 I mainly made it for myself, yet considered to turn it into the portfolio.
 
-*No offense to the Game Devs <3*
+<3
 
 ## Usage
 >[!IMPORTANT]
