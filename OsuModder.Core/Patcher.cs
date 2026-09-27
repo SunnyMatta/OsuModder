@@ -161,6 +161,8 @@ namespace OsuModder.Core.Patch
         - SunnyMatta
         P.S. I learned my previous mistakes from code below. S-Shall I get blessed by epic devs >//< ?
 
+        P.S. second: Holy shy catgirl comment
+
         */
         public static void ReplaceMethodBody(AssemblyDefinition originalAssembly, AssemblyDefinition moddedAssembly, MethodDefinition targetMethod, MethodDefinition modMethod)
         {
