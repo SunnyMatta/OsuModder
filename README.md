@@ -33,7 +33,7 @@ I mainly made it for myself, yet considered to turn it into the portfolio.
 	- you have to open `run.sh` and change `APPIMAGE_PATH=` to the osu's AppImage full path. Dropping `osu.AppImage` into the script directory also valid. All patches will be happened in a different binary folder, hence your original `.AppImage` will be secured (**Consider your online access before any changes!**)
 
 - Windows (**RISK INVOLVED**)
-	- simply running script should be it. However, windows uses one binary for modded and original. In order to recover your osu without doubts, check if you have `osu.Game.dll.ExtraBackup` (code generates it after first execution). If file exists, replace `osu.Game.dll` with `osu.Game.dll.ExtraBackup` to be sure that you are running original/unpatched binaries.
+	- Windows uses one binary for modded and original. In order to recover your osu without doubts, check if you have `osu.Game.dll.ExtraBackup` (code generates it after first execution). If file exists, replace `osu.Game.dll` with `osu.Game.dll.ExtraBackup` to be sure that you are running original/unpatched binaries.
 
 For modding, you putting `.dll` file (which is mod) into the `mods/` folder.
 
