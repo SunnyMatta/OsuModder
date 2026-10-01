@@ -37,9 +37,6 @@ I mainly made it for myself, yet considered to turn it into the portfolio.
 
 For modding, you putting `.dll` file (which is mod) into the `mods/` folder.
 
->[!NOTE]
->Some modifications require `OsuModder.API.dll` in the mod folder. It should be included with mod.
-
 Code will generate `mods/` folder in:
 
  - Linux:
@@ -52,7 +49,25 @@ Code will generate `mods/` folder in:
 
 ## Getting started
 
-Please check [osu!Framework Documentation](https://github.com/ppy/osu-framework/wiki/Setting-up-your-first-project) in order to get started.
+Please check [osu!Framework Documentation](https://github.com/ppy/osu-framework/wiki/Setting-up-your-first-project) to get some understandings.
+
+### Setup your Mod project
+
+Set you're output into `Library`
+
+	<OutputType>Library</OutputType>
+
+After, include osu's packages
+	
+	<PackageReference Include="ppy.osu.Game" Version="2026.730.0" />
+	<PackageReference Include="ppy.osu.Framework" Version="2026.731.0" />
+	
+` ppy.osu.Game ` Should have identical version build of `ppy.osu.Framework`, so it won't conflict
+
+Now, you good to compile example below
+
+### Example
+
 
 	using osu.Framework.Audio;
 	using osu.Framework.Graphics;
