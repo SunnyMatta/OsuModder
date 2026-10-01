@@ -136,7 +136,7 @@ Now, you good to compile example below
 This example affects ResultsScreen, which adds button with function and removes everything like scores and stuff.
 the `Action = () => ` part from code simply means that if button will be clicked, it will execute that scope (for this example we used applause sound).
 
-This is just very simple example of osu!Framework, which can be compiled and used as a binary for osuModder
+It was simple example, which can be compiled and used as a mod for osuModder
 
 ## Legality
 1. Trademark & Affiliation
