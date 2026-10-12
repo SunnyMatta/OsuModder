@@ -153,17 +153,6 @@ namespace OsuModder.Core.Patch
             originalAssembly.Write(output);
         }
 
-        /*
-
-        Oh god please forgive me, I used AI for part below this comment. Please understand how many attempts I've done for this part. I think I'm going insane. 
-        My sanity is vital for me :P . Again, sowwy >.<
-        
-        - SunnyMatta
-        P.S. I learned my previous mistakes from code below. S-Shall I get blessed by epic devs >//< ?
-
-        P.S. second: Holy shy catgirl comment
-
-        */
         public static void ReplaceMethodBody(AssemblyDefinition originalAssembly, AssemblyDefinition moddedAssembly, MethodDefinition targetMethod, MethodDefinition modMethod)
         {
             if (!modMethod.HasBody)
