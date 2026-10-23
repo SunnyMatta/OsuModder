@@ -153,6 +153,18 @@ namespace OsuModder.Core.Patch
             originalAssembly.Write(output);
         }
 
+        /*
+        
+            Code below is vibe-coded.
+            It's not working as I wanted, I hate AI.
+            It's for OsuModder.API for overwriting, but code above kinda does the same thing already, so it's just piece of useless code.
+            Don't @ me, I'll replace and fix it.
+            Entire project's codebase is hand-written.
+            
+            - sunnymatta
+            
+        */
+
         public static void ReplaceMethodBody(AssemblyDefinition originalAssembly, AssemblyDefinition moddedAssembly, MethodDefinition targetMethod, MethodDefinition modMethod)
         {
             if (!modMethod.HasBody)
